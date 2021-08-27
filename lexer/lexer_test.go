@@ -20,6 +20,8 @@ func TestNextToken(t *testing.T) {
 	10 == 10; 10 != 9;
 	"foobar"; "foo bar";
 	[1, 2];
+	>=
+	<=
 		`
 
 	l := New(input)
