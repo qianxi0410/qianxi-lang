@@ -23,7 +23,7 @@ type Parser struct {
 
 func New(l *lexer.Lexer) *Parser {
 	p := &Parser{l: l, errors: []string{}}
-	p.prefixParseFns = make(map[token.TokenType]prefixParseFn, 0)
+	p.prefixParseFns = make(map[token.TokenType]prefixParseFn)
 	p.infixParseFns = make(map[token.TokenType]infixParseFn)
 
 	p.registerPrefix(token.IDENT, p.parseIdentifier)
@@ -141,29 +141,29 @@ func (p *Parser) parseCallExpression(function ast.Expression) ast.Expression {
 	return exp
 }
 
-func (p *Parser) parseCallArguments() []ast.Expression {
-	args := []ast.Expression{}
+// func (p *Parser) parseCallArguments() []ast.Expression {
+// 	args := []ast.Expression{}
 
-	if p.peekTokenIs(token.RPAREN) {
-		p.nextToken()
-		return args
-	}
+// 	if p.peekTokenIs(token.RPAREN) {
+// 		p.nextToken()
+// 		return args
+// 	}
 
-	p.nextToken()
-	args = append(args, p.parseExpression(LOWEST))
+// 	p.nextToken()
+// 	args = append(args, p.parseExpression(LOWEST))
 
-	for p.peekTokenIs(token.COMMA) {
-		p.nextToken()
-		p.nextToken()
-		args = append(args, p.parseExpression(LOWEST))
-	}
+// 	for p.peekTokenIs(token.COMMA) {
+// 		p.nextToken()
+// 		p.nextToken()
+// 		args = append(args, p.parseExpression(LOWEST))
+// 	}
 
-	if !p.expectPeek(token.RPAREN) {
-		return nil
-	}
+// 	if !p.expectPeek(token.RPAREN) {
+// 		return nil
+// 	}
 
-	return args
-}
+// 	return args
+// }
 
 func (p *Parser) parseFunctionLiteral() ast.Expression {
 	lit := &ast.FunctionLiteral{Token: p.curToken}
