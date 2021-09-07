@@ -361,17 +361,17 @@ func evalBangOperatorExpression(right object.Object) object.Object {
 	}
 }
 
-func evalStatements(stmts []ast.Statement, env *object.Environment) object.Object {
-	var result object.Object
+// func evalStatements(stmts []ast.Statement, env *object.Environment) object.Object {
+// 	var result object.Object
 
-	for _, statement := range stmts {
-		result = Eval(statement, env)
-		if returnValue, ok := result.(*object.ReturnValue); ok {
-			return returnValue.Value
-		}
-	}
-	return result
-}
+// 	for _, statement := range stmts {
+// 		result = Eval(statement, env)
+// 		if returnValue, ok := result.(*object.ReturnValue); ok {
+// 			return returnValue.Value
+// 		}
+// 	}
+// 	return result
+// }
 
 func newError(format string, a ...interface{}) *object.Error {
 	return &object.Error{Message: fmt.Sprintf(format, a...)}
