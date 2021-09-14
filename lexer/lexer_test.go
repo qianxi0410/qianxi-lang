@@ -23,9 +23,6 @@ func TestNextToken(t *testing.T) {
 	>=
 	<=
 	1
-	1.2
-	3.2
-	2.
 		`
 
 	l := New(input)

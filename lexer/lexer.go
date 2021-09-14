@@ -1,8 +1,6 @@
 package lexer
 
 import (
-	"strings"
-
 	"github.com/monkey-lang/token"
 )
 
@@ -115,15 +113,7 @@ func (l *Lexer) NextToken() token.Token {
 			return tok
 		} else if isDigit(l.ch) {
 			tok.Literal = l.readNumber()
-			if strings.Contains(tok.Literal, ".") &&
-				strings.Count(tok.Literal, ".") == 1 &&
-				strings.LastIndex(tok.Literal, ".") != len(tok.Literal)-1 {
-				tok.Type = token.FLOAT
-			} else if strings.Contains(tok.Literal, ".") {
-				tok.Type = token.ILLEGAL
-			} else {
-				tok.Type = token.INT
-			}
+			tok.Type = token.INT
 			return tok
 		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
