@@ -3,6 +3,7 @@ package ast
 import "github.com/monkey-lang/token"
 
 type StringLiteral struct {
+	// token.STRING
 	Token token.Token
 	Value string
 }

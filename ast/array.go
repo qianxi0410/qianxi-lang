@@ -8,6 +8,7 @@ import (
 )
 
 type ArrayLiteral struct {
+	// token.LBRACKET
 	Token    token.Token
 	Elements []Expression
 }

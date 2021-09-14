@@ -6,9 +6,9 @@ import (
 	"github.com/monkey-lang/token"
 )
 
-// let name = value;
 type LetStatement struct {
-	Token token.Token // token.LET
+	// token.LET
+	Token token.Token
 	Name  *Identifier
 	Value Expression
 }

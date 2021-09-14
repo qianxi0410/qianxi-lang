@@ -8,6 +8,7 @@ import (
 )
 
 type HashLiteral struct {
+	// token.LBRACE
 	Token token.Token
 	Pairs map[Expression]Expression
 }

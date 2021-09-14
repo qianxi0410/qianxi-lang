@@ -7,6 +7,7 @@ import (
 )
 
 type PrefixExpression struct {
+	// token.BANG or token.MINUS
 	Token    token.Token
 	Operator string
 	Right    Expression

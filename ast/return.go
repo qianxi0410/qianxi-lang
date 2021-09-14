@@ -7,6 +7,7 @@ import (
 )
 
 type ReturnStatement struct {
+	// token.RETURN
 	Token       token.Token
 	ReturnValue Expression
 }

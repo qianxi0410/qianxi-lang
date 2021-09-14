@@ -7,6 +7,7 @@ import (
 )
 
 type BlockStatement struct {
+	// token.LBRACE
 	Token      token.Token // the { token
 	Statements []Statement
 }

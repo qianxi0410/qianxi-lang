@@ -8,8 +8,9 @@ import (
 )
 
 type CallExpression struct {
-	Token     token.Token // The '(' token
-	Function  Expression  // Identifier or FunctionLiteral
+	// The token.LPAREN
+	Token     token.Token
+	Function  Expression // Identifier or FunctionLiteral
 	Arguments []Expression
 }
 

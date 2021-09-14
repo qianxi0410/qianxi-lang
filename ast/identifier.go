@@ -3,7 +3,8 @@ package ast
 import "github.com/monkey-lang/token"
 
 type Identifier struct {
-	Token token.Token // the token.IDENT token
+	// token.IDENT
+	Token token.Token
 	Value string
 }
 

@@ -7,6 +7,7 @@ import (
 )
 
 type IfExpression struct {
+	// token.IF
 	Token       token.Token
 	Condition   Expression
 	Consequence *BlockStatement

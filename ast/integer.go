@@ -3,6 +3,7 @@ package ast
 import "github.com/monkey-lang/token"
 
 type IntegerLiteral struct {
+	// token.INT
 	Token token.Token
 	Value int64
 }

@@ -7,6 +7,7 @@ import (
 )
 
 type IndexExpression struct {
+	// token.LBRACKET
 	Token token.Token
 	Left  Expression
 	Index Expression

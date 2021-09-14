@@ -7,6 +7,7 @@ import (
 )
 
 type InfixExpression struct {
+	// e.g. token.PLUSE
 	Token    token.Token // the operator e.g. + - * /
 	Left     Expression
 	Operator string
