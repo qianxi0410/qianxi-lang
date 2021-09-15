@@ -2,20 +2,21 @@ package lexer
 
 import (
 	"strings"
+	"unicode"
 
 	"github.com/monkey-lang/token"
 )
 
 type Lexer struct {
-	input        string
+	input        []rune
 	position     int
 	readPosition int
-	ch           byte
+	ch           rune
 }
 
 func New(input string) *Lexer {
 	l := &Lexer{
-		input: input,
+		input: []rune(input),
 	}
 	l.readChar()
 	return l
@@ -31,7 +32,7 @@ func (l *Lexer) readChar() {
 	l.readPosition += 1
 }
 
-func (l *Lexer) peekChar() byte {
+func (l *Lexer) peekChar() rune {
 	if l.readPosition >= len(l.input) {
 		return 0
 	} else {
@@ -139,11 +140,11 @@ func (l *Lexer) readString() string {
 			break
 		}
 	}
-	return l.input[position:l.position]
+	return string(l.input[position:l.position])
 }
 
 func (l *Lexer) skipWhitespace() {
-	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
+	for unicode.IsSpace(l.ch) {
 		l.readChar()
 	}
 }
@@ -153,7 +154,7 @@ func (l *Lexer) readNumber() string {
 	for isDigit(l.ch) || l.ch == '.' {
 		l.readChar()
 	}
-	return l.input[position:l.position]
+	return string(l.input[position:l.position])
 }
 
 func (l *Lexer) readIdentifier() string {
@@ -161,5 +162,5 @@ func (l *Lexer) readIdentifier() string {
 	for isLetter(l.ch) {
 		l.readChar()
 	}
-	return l.input[position:l.position]
+	return string(l.input[position:l.position])
 }
