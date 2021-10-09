@@ -249,12 +249,19 @@ func evalBlockStatement(block *ast.BlockStatement, env *object.Environment) obje
 }
 
 func evalIfExpression(ie *ast.IfExpression, env *object.Environment) object.Object {
-	condition := Eval(ie.Condition, env)
-	if isError(condition) {
-		return condition
+	index := 0
+	for ; index < len(ie.Condition); index++ {
+		condition := Eval(ie.Condition[index], env)
+		if isError(condition) {
+			return condition
+		}
+		if isTruthy(condition) {
+			break
+		}
 	}
-	if isTruthy(condition) {
-		return Eval(ie.Consequence, env)
+
+	if index != len(ie.Condition) {
+		return Eval(ie.Consequence[index], env)
 	} else if ie.Alternative != nil {
 		return Eval(ie.Alternative, env)
 	} else {

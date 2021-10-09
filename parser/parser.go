@@ -234,7 +234,8 @@ func (p *Parser) parseIfExpression() ast.Expression {
 	}
 
 	p.nextToken()
-	expression.Condition = p.parseExpression(LOWEST)
+	// auto init
+	expression.Condition = append(expression.Condition, p.parseExpression(LOWEST))
 
 	if !p.expectPeek(token.RPAREN) {
 		return nil
@@ -242,7 +243,25 @@ func (p *Parser) parseIfExpression() ast.Expression {
 	if !p.expectPeek(token.LBRACE) {
 		return nil
 	}
-	expression.Consequence = p.parseBlockStatement()
+	expression.Consequence = append(expression.Consequence, p.parseBlockStatement())
+
+	for p.peekTokenIs(token.ELIF) {
+		p.nextToken()
+
+		if !p.expectPeek(token.LPAREN) {
+			return nil
+		}
+		p.nextToken()
+		expression.Condition = append(expression.Condition, p.parseExpression(LOWEST))
+
+		if !p.expectPeek(token.RPAREN) {
+			return nil
+		}
+		if !p.expectPeek(token.LBRACE) {
+			return nil
+		}
+		expression.Consequence = append(expression.Consequence, p.parseBlockStatement())
+	}
 
 	if p.peekTokenIs(token.ELSE) {
 		p.nextToken()

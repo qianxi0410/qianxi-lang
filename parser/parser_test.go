@@ -10,12 +10,13 @@ import (
 
 func TestParser_nextToken(t *testing.T) {
 	input := `
-	let x  5; let  = 10; let  838383;
+	if (1) { 1 } elif (2) { 2 } else { 3 } 
 	`
 
 	l := lexer.New(input)
 	p := New(l)
 	program := p.ParseProgram()
+
 	checkParserErrors(t, p)
 	if program == nil {
 		t.Fatalf("ParseProgram() returned nil")
@@ -322,15 +323,15 @@ func TestIfExpression(t *testing.T) {
 	if !ok {
 		t.Fatalf("stmt.Expression is not ast.IfExpression. got=%T", stmt.Expression)
 	}
-	if !testInfixExpression(t, exp.Condition, "x", "<", "y") {
+	if !testInfixExpression(t, exp.Condition[0], "x", "<", "y") {
 		return
 	}
-	if len(exp.Consequence.Statements) != 1 {
-		t.Errorf("consequence is not 1 statements. got=%d\n", len(exp.Consequence.Statements))
+	if len(exp.Consequence[0].Statements) != 1 {
+		t.Errorf("consequence is not 1 statements. got=%d\n", len(exp.Consequence[0].Statements))
 	}
-	consequence, ok := exp.Consequence.Statements[0].(*ast.ExpressionStatement)
+	consequence, ok := exp.Consequence[0].Statements[0].(*ast.ExpressionStatement)
 	if !ok {
-		t.Fatalf("Statements[0] is not ast.ExpressionStatement. got=%T", exp.Consequence.Statements[0])
+		t.Fatalf("Statements[0] is not ast.ExpressionStatement. got=%T", exp.Consequence[0].Statements[0])
 	}
 	if !testIdentifier(t, consequence.Expression, "x") {
 		return
@@ -341,7 +342,7 @@ func TestIfExpression(t *testing.T) {
 }
 
 func TestIfElseExpression(t *testing.T) {
-	input := `if (x < y) { x } else { y }`
+	input := `if (x < y) { x } elif (x > y) { y }`
 	l := lexer.New(input)
 	p := New(l)
 	program := p.ParseProgram()
@@ -357,15 +358,15 @@ func TestIfElseExpression(t *testing.T) {
 	if !ok {
 		t.Fatalf("stmt.Expression is not ast.IfExpression. got=%T", stmt.Expression)
 	}
-	if !testInfixExpression(t, exp.Condition, "x", "<", "y") {
+	if !testInfixExpression(t, exp.Condition[0], "x", "<", "y") {
 		return
 	}
-	if len(exp.Consequence.Statements) != 1 {
-		t.Errorf("consequence is not 1 statements. got=%d\n", len(exp.Consequence.Statements))
+	if len(exp.Consequence[0].Statements) != 1 {
+		t.Errorf("consequence is not 1 statements. got=%d\n", len(exp.Consequence[0].Statements))
 	}
-	consequence, ok := exp.Consequence.Statements[0].(*ast.ExpressionStatement)
+	consequence, ok := exp.Consequence[0].Statements[0].(*ast.ExpressionStatement)
 	if !ok {
-		t.Fatalf("Statements[0] is not ast.ExpressionStatement. got=%T", exp.Consequence.Statements[0])
+		t.Fatalf("Statements[0] is not ast.ExpressionStatement. got=%T", exp.Consequence[0].Statements[0])
 	}
 	if !testIdentifier(t, consequence.Expression, "x") {
 		return
