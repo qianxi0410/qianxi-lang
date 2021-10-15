@@ -27,6 +27,8 @@ func TestNextToken(t *testing.T) {
 	2.2
 	0.
 	elif
+
+	%
 		`
 
 	l := New(input)
