@@ -31,6 +31,7 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerPrefix(token.FLOAT, p.parseFloatLiteral)
 	p.registerPrefix(token.BANG, p.parsePrefixExpression)
 	p.registerPrefix(token.MINUS, p.parsePrefixExpression)
+	p.registerPrefix(token.NOT, p.parsePrefixExpression)
 
 	p.registerInfix(token.PLUS, p.parseInfixExpression)
 	p.registerInfix(token.MINUS, p.parseInfixExpression)
@@ -45,6 +46,9 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerInfix(token.REMAINDER, p.parseInfixExpression)
 	p.registerInfix(token.SHITFRIGHT, p.parseInfixExpression)
 	p.registerInfix(token.SHITFLEFT, p.parseInfixExpression)
+	p.registerInfix(token.AND, p.parseInfixExpression)
+	p.registerInfix(token.OR, p.parseInfixExpression)
+	p.registerInfix(token.XOR, p.parseInfixExpression)
 
 	p.registerPrefix(token.TRUE, p.parseBoolean)
 	p.registerPrefix(token.FALSE, p.parseBoolean)

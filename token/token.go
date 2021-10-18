@@ -57,6 +57,11 @@ const (
 
 	LE = "<="
 	GE = ">="
+
+	AND = "&"
+	OR  = "|"
+	NOT = "~"
+	XOR = "^"
 )
 
 var keywords = map[string]TokenType{
