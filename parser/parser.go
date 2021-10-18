@@ -43,6 +43,8 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerInfix(token.LE, p.parseInfixExpression)
 	p.registerInfix(token.GE, p.parseInfixExpression)
 	p.registerInfix(token.REMAINDER, p.parseInfixExpression)
+	p.registerInfix(token.SHITFRIGHT, p.parseInfixExpression)
+	p.registerInfix(token.SHITFLEFT, p.parseInfixExpression)
 
 	p.registerPrefix(token.TRUE, p.parseBoolean)
 	p.registerPrefix(token.FALSE, p.parseBoolean)

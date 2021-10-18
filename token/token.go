@@ -23,8 +23,10 @@ const (
 	SLASH     = "/"
 	REMAINDER = "%"
 
-	LT = "<"
-	GT = ">"
+	LT         = "<"
+	GT         = ">"
+	SHITFLEFT  = "<<"
+	SHITFRIGHT = ">>"
 
 	COMMA     = ","
 	SEMICOLON = ";"
