@@ -6,6 +6,8 @@ import "github.com/monkey-lang/token"
 const (
 	_ int = iota
 	LOWEST
+	OROR        // ||
+	ANDAND      // &&
 	EQUALS      // ==
 	LESSGREATER // < | >
 	SUM         // +
@@ -17,6 +19,8 @@ const (
 )
 
 var precedences = map[token.TokenType]int{
+	token.OROR:       OROR,
+	token.ANDAND:     ANDAND,
 	token.EQ:         EQUALS,
 	token.NOT_EQ:     EQUALS,
 	token.LT:         LESSGREATER,

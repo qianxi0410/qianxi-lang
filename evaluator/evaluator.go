@@ -270,6 +270,19 @@ func evalIfExpression(ie *ast.IfExpression, env *object.Environment) object.Obje
 }
 
 func isTruthy(obj object.Object) bool {
+	switch obj.Type() {
+	case object.INTEGER_OBJ:
+		if obj.Inspect() == "0" {
+			return false
+		}
+		return true
+	case object.FLOAT_OBJ:
+		if obj.Inspect() == "0.000000" {
+			return false
+		}
+		return true
+	}
+
 	switch obj {
 	case NULL:
 		return false
@@ -370,6 +383,10 @@ func evalFloatAndIntInfixExpression(operator string, left, right object.Object) 
 
 func evalInfixExpression(operator string, left, right object.Object) object.Object {
 	switch {
+	case operator == "&&":
+		return evalAndAndInfixExpression(left, right)
+	case operator == "||":
+		return evalOrOrInfixExpression(left, right)
 	case left.Type() == object.INTEGER_OBJ && right.Type() == object.INTEGER_OBJ:
 		return evalIntegerInfixExpression(operator, left, right)
 	case left.Type() == object.FLOAT_OBJ && right.Type() == object.FLOAT_OBJ:
@@ -389,6 +406,32 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 	default:
 		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
 	}
+}
+
+func evalOrOrInfixExpression(left, right object.Object) *object.Boolean {
+	leftBool := isTruthy(left)
+	if leftBool {
+		return TRUE
+	}
+
+	rightBool := isTruthy(right)
+	if rightBool {
+		return TRUE
+	}
+	return FALSE
+}
+
+func evalAndAndInfixExpression(left, right object.Object) *object.Boolean {
+	leftBool := isTruthy(left)
+	if !leftBool {
+		return FALSE
+	}
+
+	rightBool := isTruthy(right)
+	if !rightBool {
+		return FALSE
+	}
+	return TRUE
 }
 
 func evalStringInfixExpression(operator string, left, right object.Object) object.Object {

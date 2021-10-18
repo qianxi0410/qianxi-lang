@@ -49,6 +49,8 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerInfix(token.AND, p.parseInfixExpression)
 	p.registerInfix(token.OR, p.parseInfixExpression)
 	p.registerInfix(token.XOR, p.parseInfixExpression)
+	p.registerInfix(token.ANDAND, p.parseInfixExpression)
+	p.registerInfix(token.OROR, p.parseInfixExpression)
 
 	p.registerPrefix(token.TRUE, p.parseBoolean)
 	p.registerPrefix(token.FALSE, p.parseBoolean)
