@@ -72,18 +72,26 @@ func (l *Lexer) NextToken() token.Token {
 	case '%':
 		tok = newToken(token.REMAINDER, l.ch)
 	case '<':
-		if l.peekChar() == '=' {
+		if l.peekChar() == '=' || l.peekChar() == '<' {
 			ch := l.ch
 			l.readChar()
-			tok = token.Token{Type: token.LE, Literal: string(ch) + string(l.ch)}
+			if l.ch == '=' {
+				tok = token.Token{Type: token.LE, Literal: string(ch) + string(l.ch)}
+			} else {
+				tok = token.Token{Type: token.SHITFLEFT, Literal: string(ch) + string(l.ch)}
+			}
 		} else {
 			tok = newToken(token.LT, l.ch)
 		}
 	case '>':
-		if l.peekChar() == '=' {
+		if l.peekChar() == '=' || l.peekChar() == '>' {
 			ch := l.ch
 			l.readChar()
-			tok = token.Token{Type: token.GE, Literal: string(ch) + string(l.ch)}
+			if l.ch == '=' {
+				tok = token.Token{Type: token.GE, Literal: string(ch) + string(l.ch)}
+			} else {
+				tok = token.Token{Type: token.SHITFRIGHT, Literal: string(ch) + string(l.ch)}
+			}
 		} else {
 			tok = newToken(token.GT, l.ch)
 		}
@@ -99,6 +107,14 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.LBRACE, l.ch)
 	case '}':
 		tok = newToken(token.RBRACE, l.ch)
+	case '~':
+		tok = newToken(token.NOT, l.ch)
+	case '&':
+		tok = newToken(token.AND, l.ch)
+	case '|':
+		tok = newToken(token.OR, l.ch)
+	case '^':
+		tok = newToken(token.XOR, l.ch)
 	case '"':
 		tok.Type = token.STRING
 		tok.Literal = l.readString()

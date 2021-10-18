@@ -29,6 +29,13 @@ func TestNextToken(t *testing.T) {
 	elif
 
 	%
+	>>
+	<<
+
+	^
+	&
+	|
+	~
 		`
 
 	l := New(input)

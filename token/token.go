@@ -23,8 +23,10 @@ const (
 	SLASH     = "/"
 	REMAINDER = "%"
 
-	LT = "<"
-	GT = ">"
+	LT         = "<"
+	GT         = ">"
+	SHITFLEFT  = "<<"
+	SHITFRIGHT = ">>"
 
 	COMMA     = ","
 	SEMICOLON = ";"
@@ -55,6 +57,11 @@ const (
 
 	LE = "<="
 	GE = ">="
+
+	AND = "&"
+	OR  = "|"
+	NOT = "~"
+	XOR = "^"
 )
 
 var keywords = map[string]TokenType{
