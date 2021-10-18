@@ -36,6 +36,10 @@ func TestNextToken(t *testing.T) {
 	&
 	|
 	~
+	&&
+	||
+	&&&
+	|||
 		`
 
 	l := New(input)
