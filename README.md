@@ -7,7 +7,7 @@
 ### Download
 
 ```bash
-git clone https://github.com/qianxi0410/monkey-lang
+git clone https://github.com/qianxi0410/qianxi-lang
 
 cd monkey-lang
 ```
