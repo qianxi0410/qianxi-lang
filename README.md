@@ -9,7 +9,7 @@
 ```bash
 git clone https://github.com/qianxi0410/qianxi-lang
 
-cd monkey-lang
+cd qianxi-lang
 ```
 
 ### with REPL
