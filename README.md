@@ -171,8 +171,8 @@ first([1, 2, 3]); // 1
 ```c
 last(<array>): any;
 
-first(["hello", 2, 3]); // 3
-first([1, 2, "qianxi"]); // "qianxi"
+last(["hello", 2, 3]); // 3
+last([1, 2, "qianxi"]); // "qianxi"
 ```
 
 ##### rest
