@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/monkey-lang/evaluator"
-	"github.com/monkey-lang/lexer"
-	"github.com/monkey-lang/object"
-	"github.com/monkey-lang/parser"
+	"github.com/qianxi-lang/evaluator"
+	"github.com/qianxi-lang/lexer"
+	"github.com/qianxi-lang/object"
+	"github.com/qianxi-lang/parser"
 )
 
 const PROMPT = ">>"

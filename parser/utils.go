@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"github.com/monkey-lang/ast"
-	"github.com/monkey-lang/token"
+	"github.com/qianxi-lang/ast"
+	"github.com/qianxi-lang/token"
 )
 
 // type for parser fn
@@ -41,5 +41,4 @@ func (p *Parser) expectPeek(t token.TokenType) bool {
 		p.peekError(t)
 		return false
 	}
-
 }

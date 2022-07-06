@@ -4,7 +4,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/monkey-lang/token"
+	"github.com/qianxi-lang/token"
 )
 
 type Lexer struct {
@@ -49,7 +49,10 @@ func (l *Lexer) NextToken() token.Token {
 		if l.peekChar() == '=' {
 			ch := l.ch
 			l.readChar()
-			tok = token.Token{Type: token.EQ, Literal: string(ch) + string(l.ch)}
+			tok = token.Token{
+				Type:    token.EQ,
+				Literal: string(ch) + string(l.ch),
+			}
 		} else {
 			tok = newToken(token.ASSIGN, l.ch)
 		}
@@ -61,7 +64,10 @@ func (l *Lexer) NextToken() token.Token {
 		if l.peekChar() == '=' {
 			ch := l.ch
 			l.readChar()
-			tok = token.Token{Type: token.NOT_EQ, Literal: string(ch) + string(l.ch)}
+			tok = token.Token{
+				Type:    token.NOT_EQ,
+				Literal: string(ch) + string(l.ch),
+			}
 		} else {
 			tok = newToken(token.BANG, l.ch)
 		}
@@ -76,7 +82,10 @@ func (l *Lexer) NextToken() token.Token {
 			ch := l.ch
 			l.readChar()
 			if l.ch == '=' {
-				tok = token.Token{Type: token.LE, Literal: string(ch) + string(l.ch)}
+				tok = token.Token{
+					Type:    token.LE,
+					Literal: string(ch) + string(l.ch),
+				}
 			} else {
 				tok = token.Token{Type: token.SHITFLEFT, Literal: string(ch) + string(l.ch)}
 			}
@@ -88,7 +97,10 @@ func (l *Lexer) NextToken() token.Token {
 			ch := l.ch
 			l.readChar()
 			if l.ch == '=' {
-				tok = token.Token{Type: token.GE, Literal: string(ch) + string(l.ch)}
+				tok = token.Token{
+					Type:    token.GE,
+					Literal: string(ch) + string(l.ch),
+				}
 			} else {
 				tok = token.Token{Type: token.SHITFRIGHT, Literal: string(ch) + string(l.ch)}
 			}
@@ -113,7 +125,10 @@ func (l *Lexer) NextToken() token.Token {
 		if l.peekChar() == '&' {
 			ch := l.ch
 			l.readChar()
-			tok = token.Token{Type: token.ANDAND, Literal: string(ch) + string(l.ch)}
+			tok = token.Token{
+				Type:    token.ANDAND,
+				Literal: string(ch) + string(l.ch),
+			}
 		} else {
 			tok = newToken(token.AND, l.ch)
 		}
@@ -121,7 +136,10 @@ func (l *Lexer) NextToken() token.Token {
 		if l.peekChar() == '|' {
 			ch := l.ch
 			l.readChar()
-			tok = token.Token{Type: token.OROR, Literal: string(ch) + string(l.ch)}
+			tok = token.Token{
+				Type:    token.OROR,
+				Literal: string(ch) + string(l.ch),
+			}
 		} else {
 			tok = newToken(token.OR, l.ch)
 		}

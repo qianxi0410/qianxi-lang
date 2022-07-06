@@ -1,6 +1,6 @@
 package parser
 
-import "github.com/monkey-lang/token"
+import "github.com/qianxi-lang/token"
 
 // some token type's priority
 const (

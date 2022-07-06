@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	"github.com/monkey-lang/token"
+	"github.com/qianxi-lang/token"
 )
 
 type HashLiteral struct {

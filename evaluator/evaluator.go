@@ -3,8 +3,8 @@ package evaluator
 import (
 	"fmt"
 
-	"github.com/monkey-lang/ast"
-	"github.com/monkey-lang/object"
+	"github.com/qianxi-lang/ast"
+	"github.com/qianxi-lang/object"
 )
 
 var (
@@ -120,7 +120,10 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 	return nil
 }
 
-func evalHashLiteral(node *ast.HashLiteral, env *object.Environment) object.Object {
+func evalHashLiteral(
+	node *ast.HashLiteral,
+	env *object.Environment,
+) object.Object {
 	pairs := make(map[object.HashKey]object.HashPair)
 	for keyNode, valueNode := range node.Pairs {
 		key := Eval(keyNode, env)
@@ -187,7 +190,6 @@ func applyFunction(fn object.Object, args []object.Object) object.Object {
 	default:
 		return newError("not a function: %s", fn.Type())
 	}
-
 }
 
 func unwarpReturnValue(obj object.Object) object.Object {
@@ -197,7 +199,10 @@ func unwarpReturnValue(obj object.Object) object.Object {
 	return obj
 }
 
-func extendFunctionEnv(fn *object.Function, args []object.Object) *object.Environment {
+func extendFunctionEnv(
+	fn *object.Function,
+	args []object.Object,
+) *object.Environment {
 	env := object.NewEncloseEnvironment(fn.Env)
 
 	for paramIdx, param := range fn.Parameters {
@@ -206,7 +211,10 @@ func extendFunctionEnv(fn *object.Function, args []object.Object) *object.Enviro
 	return env
 }
 
-func evalExpressions(exps []ast.Expression, env *object.Environment) []object.Object {
+func evalExpressions(
+	exps []ast.Expression,
+	env *object.Environment,
+) []object.Object {
 	var result []object.Object
 
 	for _, e := range exps {
@@ -220,7 +228,10 @@ func evalExpressions(exps []ast.Expression, env *object.Environment) []object.Ob
 	return result
 }
 
-func evalIdentifier(node *ast.Identifier, env *object.Environment) object.Object {
+func evalIdentifier(
+	node *ast.Identifier,
+	env *object.Environment,
+) object.Object {
 	if val, ok := env.Get(node.Value); ok {
 		return val
 	}
@@ -231,7 +242,10 @@ func evalIdentifier(node *ast.Identifier, env *object.Environment) object.Object
 	return newError("identifier not found: " + node.Value)
 }
 
-func evalBlockStatement(block *ast.BlockStatement, env *object.Environment) object.Object {
+func evalBlockStatement(
+	block *ast.BlockStatement,
+	env *object.Environment,
+) object.Object {
 	var result object.Object
 
 	for _, statement := range block.Statements {
@@ -248,7 +262,10 @@ func evalBlockStatement(block *ast.BlockStatement, env *object.Environment) obje
 	return result
 }
 
-func evalIfExpression(ie *ast.IfExpression, env *object.Environment) object.Object {
+func evalIfExpression(
+	ie *ast.IfExpression,
+	env *object.Environment,
+) object.Object {
 	index := 0
 	for ; index < len(ie.Condition); index++ {
 		condition := Eval(ie.Condition[index], env)
@@ -295,7 +312,10 @@ func isTruthy(obj object.Object) bool {
 	}
 }
 
-func evalIntegerInfixExpression(operator string, left, right object.Object) object.Object {
+func evalIntegerInfixExpression(
+	operator string,
+	left, right object.Object,
+) object.Object {
 	leftVal := left.(*object.Integer).Value
 	rightVal := right.(*object.Integer).Value
 
@@ -333,11 +353,19 @@ func evalIntegerInfixExpression(operator string, left, right object.Object) obje
 	case "^":
 		return &object.Integer{Value: leftVal ^ rightVal}
 	default:
-		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
+		return newError(
+			"unknown operator: %s %s %s",
+			left.Type(),
+			operator,
+			right.Type(),
+		)
 	}
 }
 
-func evalFloatInfixExpression(operator string, left, right object.Object) object.Object {
+func evalFloatInfixExpression(
+	operator string,
+	left, right object.Object,
+) object.Object {
 	leftVal := left.(*object.Float).Value
 	rightVal := right.(*object.Float).Value
 
@@ -363,25 +391,47 @@ func evalFloatInfixExpression(operator string, left, right object.Object) object
 	case "<=":
 		return nativeBoolToBooleanObject(leftVal <= rightVal)
 	default:
-		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
+		return newError(
+			"unknown operator: %s %s %s",
+			left.Type(),
+			operator,
+			right.Type(),
+		)
 	}
 }
 
-func evalIntAndFloatInfixExpression(operator string, left, right object.Object) object.Object {
+func evalIntAndFloatInfixExpression(
+	operator string,
+	left, right object.Object,
+) object.Object {
 	leftVal := left.(*object.Integer).Value
 	rightVal := right.(*object.Float).Value
 
-	return evalFloatInfixExpression(operator, &object.Float{Value: float64(leftVal)}, &object.Float{Value: rightVal})
+	return evalFloatInfixExpression(
+		operator,
+		&object.Float{Value: float64(leftVal)},
+		&object.Float{Value: rightVal},
+	)
 }
 
-func evalFloatAndIntInfixExpression(operator string, left, right object.Object) object.Object {
+func evalFloatAndIntInfixExpression(
+	operator string,
+	left, right object.Object,
+) object.Object {
 	leftVal := left.(*object.Float).Value
 	rightVal := right.(*object.Integer).Value
 
-	return evalFloatInfixExpression(operator, &object.Float{Value: leftVal}, &object.Float{Value: float64(rightVal)})
+	return evalFloatInfixExpression(
+		operator,
+		&object.Float{Value: leftVal},
+		&object.Float{Value: float64(rightVal)},
+	)
 }
 
-func evalInfixExpression(operator string, left, right object.Object) object.Object {
+func evalInfixExpression(
+	operator string,
+	left, right object.Object,
+) object.Object {
 	switch {
 	case operator == "&&":
 		return evalAndAndInfixExpression(left, right)
@@ -402,9 +452,19 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 	case operator == "!=":
 		return nativeBoolToBooleanObject(left != right)
 	case left.Type() != right.Type():
-		return newError("type mismatch: %s %s %s", left.Type(), operator, right.Type())
+		return newError(
+			"type mismatch: %s %s %s",
+			left.Type(),
+			operator,
+			right.Type(),
+		)
 	default:
-		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
+		return newError(
+			"unknown operator: %s %s %s",
+			left.Type(),
+			operator,
+			right.Type(),
+		)
 	}
 }
 
@@ -434,7 +494,10 @@ func evalAndAndInfixExpression(left, right object.Object) *object.Boolean {
 	return TRUE
 }
 
-func evalStringInfixExpression(operator string, left, right object.Object) object.Object {
+func evalStringInfixExpression(
+	operator string,
+	left, right object.Object,
+) object.Object {
 	leftVal := left.(*object.String).Value
 	rightVal := right.(*object.String).Value
 
@@ -444,9 +507,13 @@ func evalStringInfixExpression(operator string, left, right object.Object) objec
 	case "==":
 		return &object.Boolean{Value: leftVal == rightVal}
 	default:
-		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
+		return newError(
+			"unknown operator: %s %s %s",
+			left.Type(),
+			operator,
+			right.Type(),
+		)
 	}
-
 }
 
 func evalPrefixExpression(operator string, right object.Object) object.Object {

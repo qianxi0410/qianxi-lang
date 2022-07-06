@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/monkey-lang/ast"
-	"github.com/monkey-lang/lexer"
-	"github.com/monkey-lang/token"
+	"github.com/qianxi-lang/ast"
+	"github.com/qianxi-lang/lexer"
+	"github.com/qianxi-lang/token"
 )
 
 type Parser struct {
@@ -244,7 +244,10 @@ func (p *Parser) parseIfExpression() ast.Expression {
 
 	p.nextToken()
 	// auto init
-	expression.Condition = append(expression.Condition, p.parseExpression(LOWEST))
+	expression.Condition = append(
+		expression.Condition,
+		p.parseExpression(LOWEST),
+	)
 
 	if !p.expectPeek(token.RPAREN) {
 		return nil
@@ -252,7 +255,10 @@ func (p *Parser) parseIfExpression() ast.Expression {
 	if !p.expectPeek(token.LBRACE) {
 		return nil
 	}
-	expression.Consequence = append(expression.Consequence, p.parseBlockStatement())
+	expression.Consequence = append(
+		expression.Consequence,
+		p.parseBlockStatement(),
+	)
 
 	for p.peekTokenIs(token.ELIF) {
 		p.nextToken()
@@ -261,7 +267,10 @@ func (p *Parser) parseIfExpression() ast.Expression {
 			return nil
 		}
 		p.nextToken()
-		expression.Condition = append(expression.Condition, p.parseExpression(LOWEST))
+		expression.Condition = append(
+			expression.Condition,
+			p.parseExpression(LOWEST),
+		)
 
 		if !p.expectPeek(token.RPAREN) {
 			return nil
@@ -269,7 +278,10 @@ func (p *Parser) parseIfExpression() ast.Expression {
 		if !p.expectPeek(token.LBRACE) {
 			return nil
 		}
-		expression.Consequence = append(expression.Consequence, p.parseBlockStatement())
+		expression.Consequence = append(
+			expression.Consequence,
+			p.parseBlockStatement(),
+		)
 	}
 
 	if p.peekTokenIs(token.ELSE) {

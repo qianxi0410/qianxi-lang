@@ -1,6 +1,6 @@
 package ast
 
-import "github.com/monkey-lang/token"
+import "github.com/qianxi-lang/token"
 
 type ExpressionStatement struct {
 	// the first token of the expression

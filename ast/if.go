@@ -3,7 +3,7 @@ package ast
 import (
 	"bytes"
 
-	"github.com/monkey-lang/token"
+	"github.com/qianxi-lang/token"
 )
 
 type IfExpression struct {

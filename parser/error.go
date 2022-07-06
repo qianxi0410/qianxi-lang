@@ -3,7 +3,7 @@ package parser
 import (
 	"fmt"
 
-	"github.com/monkey-lang/token"
+	"github.com/qianxi-lang/token"
 )
 
 // some fns about error hanle
@@ -12,7 +12,11 @@ func (p *Parser) Errors() []string {
 }
 
 func (p *Parser) peekError(t token.TokenType) {
-	msg := fmt.Sprintf("expect next token to be %s, go %s instead", t, p.peekToken.Type)
+	msg := fmt.Sprintf(
+		"expect next token to be %s, go %s instead",
+		t,
+		p.peekToken.Type,
+	)
 	p.errors = append(p.errors, msg)
 }
 

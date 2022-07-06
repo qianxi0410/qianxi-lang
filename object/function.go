@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	"github.com/monkey-lang/ast"
+	"github.com/qianxi-lang/ast"
 )
 
 type Function struct {

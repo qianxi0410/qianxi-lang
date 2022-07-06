@@ -6,13 +6,12 @@ import (
 	"os/signal"
 	"os/user"
 
-	"github.com/monkey-lang/file"
-	"github.com/monkey-lang/repl"
+	"github.com/qianxi-lang/file"
+	"github.com/qianxi-lang/repl"
 )
 
 func main() {
 	user, err := user.Current()
-
 	if err != nil {
 		panic(err)
 	}
@@ -49,5 +48,4 @@ func main() {
   ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀        ▀▀▀▀▀▀▀▀▀▀        ▀       ▀▀▀▀▀▀▀▀▀▀▀ 
 		`)
 	}
-
 }

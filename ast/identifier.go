@@ -1,6 +1,6 @@
 package ast
 
-import "github.com/monkey-lang/token"
+import "github.com/qianxi-lang/token"
 
 type Identifier struct {
 	// token.IDENT
